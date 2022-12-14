@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"os/exec"
 	"strings"
 	"time"
 )
@@ -44,11 +45,20 @@ func getInput(conn net.Conn) {
 	}
 	if text == "p" {
 		conn.Write([]byte("p"))
-		recieveImage(conn)
+		filename := recieveImage(conn)
+		displayPhoto(filename)
 	}
 }
 
-func recieveImage(conn net.Conn) {
+func displayPhoto(filename string) {
+	app := "open"
+	arg0 := filename
+	cmd := exec.Command(app, arg0)
+	stdout, _ := cmd.Output()
+	fmt.Println(string(stdout))
+}
+
+func recieveImage(conn net.Conn) string {
 	t := time.Now()
 	filename := t.Format("20060102150405")
 	filename += ".jpg"
@@ -75,6 +85,7 @@ func recieveImage(conn net.Conn) {
 	n, err := fd.Write(photoBytes)
 	checkErr(err)
 	fmt.Printf("downloaded %d bytes total \n", n)
+	return filename
 }
 
 func checkErr(e error) {

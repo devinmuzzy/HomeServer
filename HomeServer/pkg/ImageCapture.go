@@ -19,7 +19,7 @@ func writeImage(conn net.Conn) {
 	// take photo
 	app := "imagesnap"
 	arg0 := "-w"
-	arg1 := "3.00"
+	arg1 := "0.50"
 	arg2 := filename
 	cmd := exec.Command(app, arg0, arg1, arg2)
 	stdout, _ := cmd.Output()

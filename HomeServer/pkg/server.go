@@ -11,10 +11,9 @@ var CODE_REQUEST_IMAGE []byte = []byte{'p'}
 var CODE_CLOSE_CONNECTION []byte = []byte{'c'}
 
 func RunServer(host string) {
-	fmt.Printf("starting server on %s\n", host)
 	listener, err := net.Listen("tcp", host)
-	defer listener.Close()
 	checkErr(err)
+	defer listener.Close()
 	for {
 		conn, err := listener.Accept()
 		go HandleConn(conn, err)
