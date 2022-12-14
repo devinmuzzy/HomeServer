@@ -60,7 +60,7 @@ func displayPhoto(filename string) {
 
 func recieveImage(conn net.Conn) string {
 	t := time.Now()
-	filename := t.Format("20060102150405")
+	filename := t.Format("images/20060102150405")
 	filename += ".jpg"
 
 	// dowload file
